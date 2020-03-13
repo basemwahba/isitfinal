@@ -1,0 +1,89 @@
+# Name of the property. You can have multiple properties with completely
+# different config blocks for different sections of your site.
+# For example, you can have one property to handle comment submission and
+# another one to handle posts.
+comments:
+  # (*) REQUIRED
+  #
+  # Names of the fields the form is allowed to submit. If a field that is
+  # not here is part of the request, an error will be thrown.
+  allowedFields: ["name", "email", "url", "message", "replying_to"]
+
+  # (*) REQUIRED WHEN USING NOTIFICATIONS
+  #
+  # When allowedOrigins is defined, only requests sent from one of the domains
+  # listed will be accepted. The origin is sent as part of the `options` object
+  # (e.g. <input name="options[origin]" value="http://yourdomain.com/post1")
+  allowedOrigins: ["spinningnumbers.org"]
+
+  # (*) REQUIRED
+  #
+  # Name of the branch being used. Must match the one sent in the URL of the
+  # request.
+  branch: "master"
+
+  # (*) REQUIRED
+  #
+  # Destination path (filename) for the data files. Accepts placeholders.
+  filename: "comment-{@timestamp}"
+
+  # The format of the generated data files. Accepted values are "json", "yaml"
+  # or "frontmatter"
+  format: "yaml"
+
+  # List of fields to be populated automatically by Staticman and included in
+  # the data file. Keys are the name of the field. The value can be an object
+  # with a `type` property, which configures the generated field, or any value
+  # to be used directly (e.g. a string, number or array)
+  generatedFields:
+    date:
+      type: date
+      options:
+        format: "iso8601"
+#        format: "timestamp-seconds"
+
+  # Whether entries need to be appproved before they are published to the main
+  # branch. If set to `true`, a pull request will be created for your approval.
+  # Otherwise, entries will be published to the main branch automatically.
+  moderation: true
+
+  # Name of the site. Used in notification emails.
+  #name: "eduardoboucas.com"
+  name: "Spinningnumbers.org"
+
+  # Notification settings. When enabled, users can choose to receive notifications
+  # via email when someone adds a reply or a new comment. This requires an account
+  # with Mailgun, which you can get for free at http://mailgun.com.
+  notifications:
+    # Enable notifications
+    enabled: true
+
+    # (!) ENCRYPTED
+    # Mailgun API key
+    apiKey: "WQ1XRFlolM6kZnQorsQn+IilznPTaUIOwvJ37Q5hNfXj9O6AZp4yANxciyosYabANYZF5Py8NZ5mB7R5Kkgg7/dum+Rb4KkMx/0Ny9/3g9D83/p7MpAdvkGywR4cQg4RCxfjzHLiW3EF+15gLwZYMHmn2vFiScpQpxm1tvgCi/E=
+"
+
+    # (!) ENCRYPTED
+    # Mailgun domain (encrypted)
+    domain: "cfDHHwwF7f4lCTzvPkPfmebKMESn9Z0X0X4G5y2COM44tAbcDTw4DIK3DGE+Pviy1tdMBKis0m7bjQYcMlXcMRr++wIX4qhurvPghi/jNo0NtiLDR1w9/NAxCBLmbgSEQpWUMeOI3KNtL5dQbqDVheOIbsPi3DTCddpIJrY2Rkc="
+
+    fromAddress: "willy@spinningnumbers.org"
+
+  # (*) REQUIRED
+  #
+  # Destination path (directory) for the data files. Accepts placeholders.
+  path: "_data/comments/{options.slug}"
+
+  # Names of required files. If any of these isn't in the request or is empty,
+  # an error will be thrown.
+  requiredFields: ["name", "message"]
+
+  # List of transformations to apply to any of the fields supplied. Keys are
+  # the name of the field and values are possible transformation types.
+  transforms:
+    email: md5
+
+  reCaptcha:
+    enabled: true
+    siteKey: "6LcK3xkUAAAAAKdppIIORt78Df93D2qvOGtZinEy"
+    secret: "XQ/rrrBv4ejks8vjcdcjffukZoOC30fMuX0F7QVlE2iKp6irA5QFl8lN5UQjzG41stle2JgzU8AMv40aaGdH0S9A4OpUxJTjCEQpHPtKsWOIyncB0rV7ztWoA+88dt9ywmF9hk8AuKxSxNrf1YHJ73hesMeCsFmZE3CCeAozRce6Oaox1kZ+tYu5R0Kx+2zu0GARFrwz4pzVanwPKAwn6m7P4BRN+QJcQtCQjuFRd3T9XyWmm0JzEqnrTa5XczkCjsXU7SgoEZPKyuG3ercW87t1fgUPGydJrSS9rsKEyy3RJfqZZC8LT63uATM4M/CAdVrP7gjZMI3VkwPY/WB/ikEhcSgl9ONe1b1ySWE6YCbEAxfbChmBqNGdLeZRXoQQHEfFgDtrkn2QC/UlyXuy9x7XAsM0mbJqyERSJdmnAM3RLXUjc7o4LNfsmbcZFLxduqyLmNDW1LUbWA12Q/Am/CC1BRqhZlaHoa9Ep90KX+EivOlxZk5/WyTVFbeczFeKz64Eu53yosxrgc6GrEFZOlJCCYYeXnBbElU7P144KGSstO1ahbwPBD1VzPpJNRysq4yzJFOL3DPfPdi2E1GnPmHy/5Jb+pBRMxi5S46yyXTpD0pD183GU6npoRNsDnJt03Yb2zkURpaMjpYkrimE7USGuGgrx4wauX1XNxQ+6tA="
